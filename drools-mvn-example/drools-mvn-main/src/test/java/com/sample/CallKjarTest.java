@@ -15,7 +15,7 @@ public class CallKjarTest extends TestCase {
 	public void testProcess() {
                 
         String groupId = "com.sample";
-        String artifactId = "drools-simple-dep-kjar";
+        String artifactId = "drools-mvn-kjar";
         String version = "1.0.0-SNAPSHOT";
         
 		KieServices ks = KieServices.Factory.get();
