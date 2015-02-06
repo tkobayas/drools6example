@@ -11,7 +11,7 @@
   <name>drools-mvn-main</name>
 
   <properties>
-    <drools.version>6.0.3-redhat-4</drools.version>
+    <drools.version>6.0.3-redhat-6</drools.version>
   </properties>
 
   <repositories>
