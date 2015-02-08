@@ -23,7 +23,7 @@ public class CallKjarTest extends TestCase {
         KieContainer kcontainer = ks.newKieContainer(releaseId);
         
         KieSession ksession = kcontainer.newKieSession();
-        ksession.insert(new String("dummy")); // This project intentionally doesn't have dependency on MyPojo class (drools-simple-dep-jar) for test purpose
+        ksession.insert(new MyPojo("John")); // This project intentionally doesn't have dependency on MyPojo class (drools-simple-dep-jar) for test purpose
         ksession.fireAllRules();
         
         ksession.dispose();

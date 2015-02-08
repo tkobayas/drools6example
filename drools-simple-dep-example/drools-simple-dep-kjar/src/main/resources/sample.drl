@@ -2,14 +2,6 @@ package com.sample;
 
 import com.sample.MyPojo;
 
-rule "init"
-	salience 100
-	when
-	then
-		System.out.println("init");
-		insert(new MyPojo("John"));
-end
-
 rule "hello"
 	when
 		$m : MyPojo()
