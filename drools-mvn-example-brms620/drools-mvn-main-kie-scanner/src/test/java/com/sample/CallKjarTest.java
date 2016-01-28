@@ -22,9 +22,10 @@ public class CallKjarTest extends TestCase {
         ReleaseId releaseId = ks.newReleaseId(groupId, artifactId, version);
         KieContainer kcontainer = ks.newKieContainer(releaseId);
         KieScanner kscanner = ks.newKieScanner(kcontainer);
+        kscanner.start(2000L);
 
         for (int i = 0; i < 100; i++) {
-            kscanner.scanNow();
+            //kscanner.scanNow();
 
             KieSession ksession = kcontainer.newKieSession();
             ksession.insert(new MyPojo("John"));
