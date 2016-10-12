@@ -46,15 +46,15 @@ import org.uberfire.java.nio.fs.jgit.util.JGitUtil.JGitPathInfo;
 import org.uberfire.java.nio.fs.jgit.util.JGitUtil.PathType;
 
 public class MultiThreadJGitUtilTest {
-    static int commiterCount = 0;
+    static int committerCount = 0;
 
     static {
         //      System.setProperty("org.uberfire.nio.git.retry.onfail.sleep", "200");
         //      System.setProperty("org.uberfire.nio.git.retry.onfail.times", "30");
 
-        commiterCount = Integer.parseInt(System.getProperty("commiter.count", "200"));
+        committerCount = Integer.parseInt(System.getProperty("committer.count", "200"));
 
-        System.out.println("commiter.count = " + commiterCount);
+        System.out.println("committer.count = " + committerCount);
 
         System.out.println("org.uberfire.nio.git.retry.onfail.sleep : " + System.getProperty("org.uberfire.nio.git.retry.onfail.sleep"));
         System.out.println("org.uberfire.nio.git.retry.onfail.times : " + System.getProperty("org.uberfire.nio.git.retry.onfail.times"));
@@ -79,7 +79,7 @@ public class MultiThreadJGitUtilTest {
             public void run() {
                 long start = System.currentTimeMillis();
                 System.out.println("reader start");
-                for (int i = 0; i < commiterCount * 10; i++) {
+                for (int i = 0; i < committerCount * 10; i++) {
                     JGitPathInfo info = JGitUtil.resolvePath(git, "master", "path/to/file1.txt");
                     if (info == null) {
                         System.out.println("info == null, i = " + i);
@@ -120,7 +120,7 @@ public class MultiThreadJGitUtilTest {
             public void run() {
                 long start = System.currentTimeMillis();
                 System.out.println("reader start");
-                for (int i = 0; i < commiterCount * 10; i++) {
+                for (int i = 0; i < committerCount * 10; i++) {
                     InputStream is = JGitUtil.resolveInputStream(git, "master", "path/to/file1.txt");
                     if (is == null) {
                         System.out.println("is == null, i = " + i);
@@ -155,7 +155,7 @@ public class MultiThreadJGitUtilTest {
             public void run() {
                 long start = System.currentTimeMillis();
                 System.out.println("reader start");
-                for (int i = 0; i < commiterCount * 10; i++) {
+                for (int i = 0; i < committerCount * 10; i++) {
                     List<JGitPathInfo> infoList = JGitUtil.listPathContent(git, "master", "path/to/");
                     if (infoList == null) {
                         System.out.println("infoList == null, i = " + i);
@@ -193,7 +193,7 @@ public class MultiThreadJGitUtilTest {
             public void run() {
                 long start = System.currentTimeMillis();
                 System.out.println("reader start");
-                for (int i = 0; i < commiterCount * 10; i++) {
+                for (int i = 0; i < committerCount * 10; i++) {
                     Pair<PathType, ObjectId> pathResult = JGitUtil.checkPath(git, "master", "path/to/file1.txt");
                     if (pathResult == null) {
                         System.out.println("pathResult == null, i = " + i);
@@ -231,7 +231,7 @@ public class MultiThreadJGitUtilTest {
             public void run() {
                 long start = System.currentTimeMillis();
                 System.out.println("reader start");
-                for (int i = 0; i < commiterCount * 10; i++) {
+                for (int i = 0; i < committerCount * 10; i++) {
                     RevCommit lastCommit = JGitUtil.getLastCommit(git, "master");
                     if (lastCommit == null) {
                         System.out.println("lastCommit == null, i = " + i);
@@ -267,13 +267,13 @@ public class MultiThreadJGitUtilTest {
         });
 
         // committer thread
-        Runnable commiter = new Runnable() {
+        Runnable committer = new Runnable() {
             @Override
             public void run() {
                 long start = System.currentTimeMillis();
-                System.out.println("commiter start");
+                System.out.println("committer start");
                 try {
-                    for (int i = 0; i < commiterCount; i++) {
+                    for (int i = 0; i < committerCount; i++) {
                         final int fileNum = i;
                         commit(git, "master", "name", "name@example.com", "commit with amend", null, new Date(), true, new HashMap<String, File>() {
                             {
@@ -284,7 +284,7 @@ public class MultiThreadJGitUtilTest {
                 } catch (IOException ioe) {
                     ioe.printStackTrace();
                 }
-                System.out.println("commiter finished : elapsedTime = " + (System.currentTimeMillis() - start) + " ms");
+                System.out.println("committer finished : elapsedTime = " + (System.currentTimeMillis() - start) + " ms");
             }
         };
 
@@ -292,7 +292,7 @@ public class MultiThreadJGitUtilTest {
 
         // Execute!
         ExecutorService executor = Executors.newFixedThreadPool(2);
-        executor.execute(commiter);
+        executor.execute(committer);
         executor.execute(reader);
         executor.shutdown();
         try {
