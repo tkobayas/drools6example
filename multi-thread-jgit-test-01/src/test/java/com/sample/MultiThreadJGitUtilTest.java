@@ -52,7 +52,7 @@ public class MultiThreadJGitUtilTest {
         //      System.setProperty("org.uberfire.nio.git.retry.onfail.sleep", "200");
         //      System.setProperty("org.uberfire.nio.git.retry.onfail.times", "30");
 
-        committerCount = Integer.parseInt(System.getProperty("committer.count", "200"));
+        committerCount = Integer.parseInt(System.getProperty("committer.count", "1000"));
 
         System.out.println("committer.count = " + committerCount);
 
