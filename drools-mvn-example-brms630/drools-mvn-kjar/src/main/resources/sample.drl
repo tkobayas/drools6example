@@ -1,0 +1,10 @@
+package com.sample;
+
+import com.sample.MyPojo;
+
+rule "hello"
+	when
+		$m : MyPojo()
+	then
+		System.out.println("XXX 1.1.0 SNAPSHOT Hello, " + $m.getName());
+end
